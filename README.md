@@ -43,8 +43,7 @@ Halaman login digunakan untuk masuk ke sistem sebagai admin atau user.
 
 Halaman register digunakan untuk membuat akun baru.
 
-<img width="1893" height="894" alt="register" src="https://github.com/user-attachments/assets/69256b70-d39d-4090-bc8f-776b00056879" />
-
+![Register](public/assets/images/register.png)
 ---
 
 ## 📊 Dashboard Admin
