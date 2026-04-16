@@ -1,4 +1,4 @@
-<img width="1893" height="894" alt="Tampilan Login" src="https://github.com/user-attachments/assets/69256b70-d39d-4090-bc8f-776b00056879" /># 📚 UAS_RPL_PERPUSTAKAAN2026
+# 📚 UAS_RPL_PERPUSTAKAAN2026
 
 Aplikasi **Perpustakaan Digital** berbasis **CodeIgniter 4** yang dibuat untuk memenuhi tugas **UAS Rekayasa Perangkat Lunak (RPL)** tahun 2026.
 
@@ -34,7 +34,7 @@ Aplikasi ini dirancang untuk membantu pengelolaan data perpustakaan seperti data
 
 Halaman login digunakan untuk masuk ke sistem sebagai admin atau user.
 
-![Login](assets/Login.png)
+<img width="1893" height="894" alt="Tampilan Login" src="https://github.com/user-attachments/assets/69256b70-d39d-4090-bc8f-776b00056879" />
 
 
 ---
@@ -43,7 +43,7 @@ Halaman login digunakan untuk masuk ke sistem sebagai admin atau user.
 
 Halaman register digunakan untuk membuat akun baru.
 
-![Register](assets/register.png)
+<img width="1893" height="894" alt="register" src="https://github.com/user-attachments/assets/69256b70-d39d-4090-bc8f-776b00056879" />
 
 ---
 
