@@ -48,7 +48,7 @@ $routes->group('peminjaman', ['filter' => 'auth:admin,petugas'], function ($rout
     $routes->get('/', 'Peminjaman::index');
     $routes->get('tambah', 'Peminjaman::create');
     $routes->post('save', 'Peminjaman::save');
-    $routes->get('pengembalian/(:num)', 'Peminjaman::kembali/$1');
+    $routes->get('kembali/(:num)', 'Peminjaman::kembali/$1');
 });
 
 

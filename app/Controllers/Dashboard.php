@@ -8,37 +8,103 @@ use App\Models\PeminjamanModel;
 
 class Dashboard extends BaseController
 {
+    protected $bukuModel;
+    protected $anggotaModel;
+    protected $peminjamanModel;
+
+    public function __construct()
+    {
+        $this->bukuModel       = new BukuModel();
+        $this->anggotaModel    = new AnggotaModel();
+        $this->peminjamanModel = new PeminjamanModel();
+    }
+
     public function index()
     {
-        // Ambil role
+        // =========================
+        // VALIDASI LOGIN
+        // =========================
+        if (!session()->get('role')) {
+            return redirect()->to('/login');
+        }
+
         $role = session()->get('role');
 
-        // Load Model
-        $bukuModel       = new BukuModel();
-        $anggotaModel    = new AnggotaModel();
-        $peminjamanModel = new PeminjamanModel();
+        // =========================
+        // STATISTIK UTAMA
+        // =========================
+        $dataBuku    = $this->bukuModel->countAll();
+        $dataAnggota = $this->anggotaModel->countAll();
+        $dataPinjam  = $this->peminjamanModel->countAll();
 
-        // Data Statistik
+        // 🔥 TOTAL PENGEMBALIAN
+        $dataKembali = $this->peminjamanModel
+            ->where('status', 'kembali')
+            ->countAllResults();
+
+        // =========================
+        // CHART BULANAN (6 BULAN)
+        // =========================
+        $chartBulanan = $this->peminjamanModel
+            ->select("MONTH(tanggal_pinjam) as bulan, COUNT(*) as total")
+            ->where("tanggal_pinjam >=", date('Y-m-01', strtotime('-5 months')))
+            ->groupBy("MONTH(tanggal_pinjam)")
+            ->orderBy("MONTH(tanggal_pinjam)", "ASC")
+            ->findAll();
+
+        // =========================
+        // CHART JENIS BUKU
+        // =========================
+        $chartJenis = $this->bukuModel
+            ->select("jenis, COUNT(*) as total")
+            ->groupBy("jenis")
+            ->findAll();
+
+        // =========================
+        // CHART STATUS (BARU 🔥)
+        // =========================
+        $chartStatus = $this->peminjamanModel
+            ->select("status, COUNT(*) as total")
+            ->groupBy("status")
+            ->findAll();
+
+        // =========================
+        // KALENDER PINJAM
+        // =========================
+        $tanggalPinjam = $this->peminjamanModel
+            ->select("DAY(tanggal_pinjam) as hari")
+            ->where("MONTH(tanggal_pinjam)", date('m'))
+            ->findAll();
+
+        // =========================
+        // KALENDER KEMBALI (BARU 🔥)
+        // =========================
+        $tanggalKembali = $this->peminjamanModel
+            ->select("DAY(tanggal_kembali) as hari")
+            ->where("tanggal_kembali IS NOT NULL")
+            ->where("MONTH(tanggal_kembali)", date('m'))
+            ->findAll();
+
+        // =========================
+        // KIRIM DATA
+        // =========================
         $data = [
-            'dataBuku'      => $bukuModel->countAll(),
-            'dataAnggota'   => $anggotaModel->countAll(),
-            'dataPinjam'    => $peminjamanModel->countAll(),
+            'dataBuku'        => $dataBuku,
+            'dataAnggota'     => $dataAnggota,
+            'dataPinjam'      => $dataPinjam,
+            'dataKembali'     => $dataKembali,
 
-            // Data Chart Bulanan (6 bulan terakhir)
-            'chartBulanan' => $peminjamanModel
-                ->select("MONTH(tanggal_pinjam) as bulan, COUNT(*) as total")
-                ->where("tanggal_pinjam >=", date('Y-m-01', strtotime('-5 months')))
-                ->groupBy("MONTH(tanggal_pinjam)")
-                ->orderBy("MONTH(tanggal_pinjam)", "ASC")
-                ->findAll(),
+            'chartBulanan'    => $chartBulanan,
+            'chartJenis'      => $chartJenis,
+            'chartStatus'     => $chartStatus,
 
-            // Data Donut (Jenis Buku)
-            'chartJenis' => $bukuModel
-                ->select("jenis, COUNT(*) as total")
-                ->groupBy("jenis")
-                ->findAll()
+            'tanggalPinjam'   => $tanggalPinjam,
+            'tanggalKembali'  => $tanggalKembali
         ];
 
+        // =========================
+        // ROLE VIEW
+        // =========================
         switch ($role) {
             case 'admin':
                 return view('dashboard/admin', $data);
