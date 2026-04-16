@@ -43,14 +43,16 @@ Halaman login digunakan untuk masuk ke sistem sebagai admin atau user.
 
 Halaman register digunakan untuk membuat akun baru.
 
-<img width="1893" height="894" alt="Tampilan Register" src="public/assets/images/register.png" />
+<img width="1893" height="894" alt="register" />
+
+
 ---
 
 ## 📊 Dashboard Admin
 
 Dashboard menampilkan ringkasan data perpustakaan seperti jumlah buku, anggota, dan transaksi.
 
-![Dashboard](images/dashboard.png)
+![Dashboard](images/Dashboard.png)
 
 ---
 
