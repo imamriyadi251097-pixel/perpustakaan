@@ -43,7 +43,7 @@ Halaman login digunakan untuk masuk ke sistem sebagai admin atau user.
 
 Halaman register digunakan untuk membuat akun baru.
 
-![Register](public/assets/images/register.png)
+![Register](images/register.png)
 ---
 
 ## 📊 Dashboard Admin
