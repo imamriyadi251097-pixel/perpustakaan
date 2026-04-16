@@ -43,7 +43,7 @@ Halaman login digunakan untuk masuk ke sistem sebagai admin atau user.
 
 Halaman register digunakan untuk membuat akun baru.
 
-<img width="1893" height="894" alt="register" />
+![Register](images/register.png)
 
 
 ---
